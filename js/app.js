@@ -7,18 +7,18 @@ console.log('Message Carrier is working')
 // <li></li>
 // `
 
-const loadNews = () =>{
+const loadNews = () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`
     fetch(url)
-    .then(res => res.json())
-    .then(data => displayNews(data.data.news_category))
+        .then(res => res.json())
+        .then(data => displayNews(data.data.news_category))
 }
 
 loadNews()
 
-const displayNews = (allNews) =>{
+const displayNews = (allNews) => {
     const ul = document.getElementById('NewsLists')
-    for(let news of allNews){
+    for (let news of allNews) {
         const li = document.createElement('li');
         li.innerHTML = `
         <a onclick="NewsDetails('${news.category_id}')" href="#"
@@ -27,16 +27,63 @@ const displayNews = (allNews) =>{
         `
         ul.appendChild(li)
     }
-    
+
 }
 
-const NewsDetails = id =>{
+const NewsDetails = id => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     fetch(url)
-    .then(res => res.json())
-    .then(data => displayNewsDetails(data.data[0]))
+        .then(res => res.json())
+        .then(data => displayNewsDetails(data.data))
 }
 
-const displayNewsDetails = allDetails =>{
-    console.log(allDetails)
+const displayNewsDetails = allDetails => {
+    const cards = document.getElementById('cards')
+    for (let card of allDetails) {
+        console.log(card)
+        const div = document.createElement('div')
+        div.classList.add('w-100')
+        div.classList.add('lg:flex')
+        div.innerHTML = `
+        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
+        title="Woman holding a mug">
+    </div>
+    <div
+        class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+        <div class="mb-8">
+          
+            <div class="text-black font-bold text-xl mb-2">Can coffee </div>
+            <p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing
+                elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
+                nihil.</p>
+        </div>
+        <div class="flex justify-between container">
+            <div class="flex items-center">
+                <img class="w-10 h-10 rounded-full mr-4"
+                    src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg"
+                    alt="Avatar of Jonathan Reinink">
+                <div class="text-sm">
+                    <p class="text-black leading-none">Jonathan Reinink</p>
+                    <p class="text-grey-dark">Aug 18</p>
+                </div>
+            </div>
+            <div>
+                <i class="fa-sharp fa-solid fa-eye"></i> 1.5 M
+            </div>
+            <div>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div>
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+            </div>
+        `
+
+        cards.appendChild(div)
+    }
+
 }
