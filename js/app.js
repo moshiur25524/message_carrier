@@ -1,12 +1,5 @@
-console.log('Message Carrier is working')
 
-// const main = document.getElementById('banner')
-// const div = document.createElement('div')
-// const ul = document.createElement('ul')
-// div.innerHTML = `
-// <li></li>
-// `
-
+// ---------------Load all news in the header----------------
 const loadNews = () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`
     fetch(url)
@@ -22,7 +15,7 @@ const displayNews = (allNews) => {
         const li = document.createElement('li');
         li.innerHTML = `
         <a onclick="NewsDetails('${news.category_id}')"
-        class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+        class="block cursor-pointer  py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
         aria-current="page">${news.category_name}</a>
         `
         ul.appendChild(li)
@@ -30,15 +23,19 @@ const displayNews = (allNews) => {
 
 }
 
+// ------------News Details----------------
+const cards = document.getElementById('cards')
 const NewsDetails = id => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
+    cards.innerHTML = ''
+
     fetch(url)
         .then(res => res.json())
         .then(data => displayNewsDetails(data.data))
 }
 
 const displayNewsDetails = allDetails => {
-    const cards = document.getElementById('cards')
+
     for (let card of allDetails) {
         console.log(card)
         const div = document.createElement('div')
@@ -63,7 +60,7 @@ const displayNewsDetails = allDetails => {
                     src="${card.author.img}"
                     alt="Avatar of Jonathan Reinink">
                 <div class="text-sm">
-                    <p class="text-black leading-none">${card.author.name === (null || ''||'system') ? 'No Data entered': card.author.name}</p>
+                     <p class="text-black leading-none">${card.author.name === ('null' || 'system') ? `<span class='text-red-700'>Missing Data</span>`: card.author.name }</p>
                     <p class="text-grey-dark">Aug 18</p>
                 </div>
             </div>
