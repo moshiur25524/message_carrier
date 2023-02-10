@@ -21,7 +21,7 @@ const displayNews = (allNews) => {
     for (let news of allNews) {
         const li = document.createElement('li');
         li.innerHTML = `
-        <a onclick="NewsDetails('${news.category_id}')" href="#"
+        <a onclick="NewsDetails('${news.category_id}')"
         class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
         aria-current="page">${news.category_name}</a>
         `
@@ -44,32 +44,31 @@ const displayNewsDetails = allDetails => {
         const div = document.createElement('div')
         div.classList.add('w-100')
         div.classList.add('lg:flex')
+        div.classList.add('m-8')
         div.innerHTML = `
         <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-        style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
+        style="background-image: url('${card.thumbnail_url}')"
         title="Woman holding a mug">
     </div>
     <div
         class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
         <div class="mb-8">
           
-            <div class="text-black font-bold text-xl mb-2">Can coffee </div>
-            <p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-                nihil.</p>
+            <div class="text-black font-bold text-xl mb-2">${card.title} </div>
+            <p class="text-grey-darker text-base">${card.details.slice(0,300)}</p>
         </div>
         <div class="flex justify-between container">
             <div class="flex items-center">
                 <img class="w-10 h-10 rounded-full mr-4"
-                    src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg"
+                    src="${card.author.img}"
                     alt="Avatar of Jonathan Reinink">
                 <div class="text-sm">
-                    <p class="text-black leading-none">Jonathan Reinink</p>
+                    <p class="text-black leading-none">${card.author.name === (null || ''||'system') ? 'No Data entered': card.author.name}</p>
                     <p class="text-grey-dark">Aug 18</p>
                 </div>
             </div>
             <div>
-                <i class="fa-sharp fa-solid fa-eye"></i> 1.5 M
+                <i class="fa-sharp fa-solid fa-eye"></i> ${card.total_view} M
             </div>
             <div>
                 <i class="fa-solid fa-star"></i>
